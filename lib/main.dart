@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:upi_payment_plugin/model/upi_app_model.dart';
 import 'package:upi_payment_plugin/upi_payment_plugin.dart';
@@ -20,8 +22,9 @@ class _MyAppState extends State<MyApp> {
   final TextEditingController payeeNameController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
   final TextEditingController transactionIdController = TextEditingController();
-  final TextEditingController transactionNoteController = TextEditingController();
-  
+  final TextEditingController transactionNoteController =
+      TextEditingController();
+
   @override
   void initState() {
     fetchUpiApps();
@@ -53,7 +56,8 @@ class _MyAppState extends State<MyApp> {
       merchantCode: '1234',
       link: '',
       transactionRefId: 'ref123456',
-      packageName: selectedUpiApp?.packageName ?? 'com.google.android.apps.nbu.paisa.user', // default Google Pay
+      packageName: selectedUpiApp?.packageName ??
+          'com.google.android.apps.nbu.paisa.user', // default Google Pay
       secretKey: '', // provide by UPI app
     );
   }
@@ -87,10 +91,11 @@ class _MyAppState extends State<MyApp> {
               ),
               TextField(
                 controller: transactionNoteController,
-                decoration: InputDecoration(labelText: "Enter Transaction Note"),
+                decoration:
+                    InputDecoration(labelText: "Enter Transaction Note"),
               ),
               SizedBox(height: 20),
-              
+
               // GridView for UPI apps selection
               Expanded(
                 child: GridView.builder(
@@ -109,14 +114,22 @@ class _MyAppState extends State<MyApp> {
                         });
                       },
                       child: Card(
-                        color: selectedUpiApp == app ? Colors.blue : Colors.white,
+                        color:
+                            selectedUpiApp == app ? Colors.blue : Colors.white,
                         child: Center(
-                          child: Text(
-                            app.appName,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: selectedUpiApp == app ? Colors.white : Colors.black,
-                            ),
+                          child: Column(
+                            children: [
+                              appIcon(app),
+                              Text(
+                                app.appName,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: selectedUpiApp == app
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -135,5 +148,14 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
+  }
+
+  appIcon(UpiAppModel app) {
+    try {
+      var bytes = base64Decode(app.icon ?? '');
+      return Image.memory(bytes,);
+    } catch (e) {
+      return Container();
+    }
   }
 }
