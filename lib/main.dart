@@ -21,6 +21,7 @@ class _MyAppState extends State<MyApp> {
   final TextEditingController payeeUpiIdController = TextEditingController();
   final TextEditingController payeeNameController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
+  final TextEditingController marcentCodeController = TextEditingController();
   final TextEditingController transactionIdController = TextEditingController();
   final TextEditingController transactionNoteController =
       TextEditingController();
@@ -46,6 +47,7 @@ class _MyAppState extends State<MyApp> {
     double amount = double.tryParse(amountController.text) ?? 0.0;
     String transactionId = transactionIdController.text;
     String transactionNote = transactionNoteController.text;
+    String merchantCode = marcentCodeController.text;
 
     UpiPaymentPlugin.initiateUPIPayment(
       payeeUpiId: payeeUpiId,
@@ -53,7 +55,7 @@ class _MyAppState extends State<MyApp> {
       amount: amount,
       transactionId: transactionId,
       transactionNote: transactionNote,
-      merchantCode: '1234',
+      merchantCode: merchantCode,
       link: '',
       transactionRefId: 'ref123456',
       packageName: selectedUpiApp?.packageName ??
@@ -79,6 +81,10 @@ class _MyAppState extends State<MyApp> {
               TextField(
                 controller: payeeNameController,
                 decoration: InputDecoration(labelText: "Enter Payee Name"),
+              ),
+               TextField(
+                controller: marcentCodeController,
+                decoration: InputDecoration(labelText: "Enter Payee Merchant Code"),
               ),
               TextField(
                 controller: amountController,

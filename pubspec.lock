@@ -204,10 +204,10 @@ packages:
     dependency: "direct main"
     description:
       name: upi_payment_plugin
-      sha256: "23d30066fd14233d2ee0013b9ae6d9c947bc1c0e3ef8454b3c2498fddb81f66b"
+      sha256: a6e80b5399c844c814091d1c3f641ddc664aa14d708e98e8ce4c36760b70e0ab
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.2"
+    version: "0.0.3"
   vector_math:
     dependency: transitive
     description:
